@@ -189,6 +189,10 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1712222050249707499, guid: 3f4926e05a570e848865b4dc533a0345, type: 3}
+      propertyPath: isGrounded
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4231686734160884807, guid: 3f4926e05a570e848865b4dc533a0345, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
