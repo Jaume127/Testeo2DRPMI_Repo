@@ -22,6 +22,11 @@ public class PlayerController2D : MonoBehaviour
     [Header("Jump Parameters")]
     public float jumpForce;
     [SerializeField] bool isGrounded;
+    //Variables para el GroundCheck
+    [SerializeField] Transform groundCheck;
+    [SerializeField] float groundCheckRadius = 0.1f;
+    [SerializeField] LayerMask groundLayer;
+
 
 
     // Start is called before the first frame update
@@ -38,6 +43,7 @@ public class PlayerController2D : MonoBehaviour
     void Update()
     {
         HandleAnimations();
+        GroundCheck();
         
         //Flip
         if (moveInput.x > 0)
@@ -77,6 +83,11 @@ public class PlayerController2D : MonoBehaviour
         isFacingRight = !isFacingRight; //Nombre de bool = a !nombredebool (cambio al estado contrario)
     }
 
+    void GroundCheck()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    }
+
     void HandleAnimations()
     {
         //Conector de valores generales con parámetros de cambios de animación
@@ -97,9 +108,13 @@ public class PlayerController2D : MonoBehaviour
 
     public void HandleJump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
-            playerRB.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+            if (isGrounded)
+            {
+                playerRB.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+            }
+            
         }
 
     }
